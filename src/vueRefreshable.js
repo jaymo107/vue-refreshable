@@ -57,14 +57,8 @@ export default {
 
             /**
              * Clear storage when the component is unmounted.
-             * 
-             * @param {HTMLElement} el          DOM Element.
-             * @param {Object} binding          Binding object.
-             * @param {Object} vnode            VNode.
              */
-            unbind(el, binding, vnode) {
-                clearStorage();
-            },
+            unbind: clearStorage,
 
             /**
              * Every time the data updates, persist to the storage.
