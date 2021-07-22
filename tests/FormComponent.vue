@@ -9,12 +9,14 @@
     export default {
         name: 'FormComponent',
 
+        props: ['dataName', 'dataEmail'],
+
         data() {
             return {
                 name: 'intact',
                 form: {
-                    name: '',
-                    email: ''
+                    name: this.dataName || '',
+                    email: this.dataEmail || ''
                 }
             };
         },

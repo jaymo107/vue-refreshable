@@ -23,11 +23,17 @@ export default {
          * @return {Object}     The parsed state from storage.
          */
         const getState = () => {
-            const stored = storage.getItem(STORAGE_KEY);
+            let stored = storage.getItem(STORAGE_KEY);;
 
-            if (!stored) return {};
-            
-            return JSON.parse(stored);
+            if (stored) {
+                try {
+                    stored = JSON.parse(stored);
+                } catch (e) {
+                    //
+                }
+            }
+
+            return stored || {};
         };
 
         /**
