@@ -37,6 +37,24 @@ describe('Refreshable', () => {
         expect(mockStorage.getItem).toHaveBeenCalledWith('vue-refreshable-state');
     });
 
+    it('loads the stored data using a custom key', () => {
+        mockStorage.getItem.mockReset();
+
+        const local = createLocalVue();
+
+        local.use(Refreshable, {
+            storage: mockStorage,
+            key: 'custom-key'
+        });
+
+        shallowMount(FormComponent, {
+            localVue: local
+        });
+
+        expect(mockStorage.getItem).toHaveBeenCalledTimes(1);
+        expect(mockStorage.getItem).toHaveBeenCalledWith('custom-key');
+    });
+
     it('stores the current state to localStorage on change', async () => {
         const expected = JSON.stringify({ name: 'John Doe', email: '' });
 
