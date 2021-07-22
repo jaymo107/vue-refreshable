@@ -12,6 +12,7 @@ Persistant forms when you refresh.
 - Encryption.
 - Tests.
 - Linting (I disabled for now)
+- Instead of relying on the data object, actually make it matter where you put the directive and get the data from the child inputs of the form. Since it doesn't matter where you put the directive currently.
 
 #### Usage
 Install the plugin globally.
