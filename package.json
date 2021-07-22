@@ -1,8 +1,16 @@
 {
   "name": "vue-refreshable",
-  "version": "0.0.0.1",
+  "version": "0.0.1",
   "description": "Refreshable forms.",
   "main": "./src/vueRefreshable.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaymo107/vue-refreshable.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jaymo107/vue-refreshable/issues"
+  },
+  "homepage": "https://github.com/jaymo107/vue-refreshable#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,6 +22,6 @@
     "localStorage",
     "persist"
   ],
-  "author": "jaymo107@gmail.com",
-  "license": "ISC"
+  "author": "JD",
+  "license": "MIT"
 }
