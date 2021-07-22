@@ -20,10 +20,10 @@ Install the plugin globally.
 Vue.use(Refreshable);
 ```
 
-Then use the directive `v-refreshable` on the form element you'd like to save, passing in the object which contains the form data.
+Then use the directive `v-refreshable` on the form element you'd like to save, passing in the name of the key where the form values are as an argument.
 
 ```html
-<form v-refreshable="form"></form>
+<form v-refreshable:form></form>
 ```
 
 ```js
