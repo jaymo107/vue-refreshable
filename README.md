@@ -17,6 +17,10 @@ Persistant forms when you refresh.
 #### Usage
 Install the plugin globally.
 
+```sh
+npm i vue-refreshable --save-dev
+```
+
 ```js
 Vue.use(Refreshable);
 ```
