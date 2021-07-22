@@ -6,6 +6,22 @@ describe('Refreshable', () => {
     let wrapper;
     let mockStorage;
 
+    /**
+     * @param {Object} options 
+     * @return {Wrapper}
+     */
+    const createInstance = options => {
+        const localVue = createLocalVue();
+
+        localVue.use(Refreshable, Object.assign({
+            storage: mockStorage,
+        }, options));
+
+        return shallowMount(FormComponent, {
+            localVue
+        });
+    };
+
     beforeAll(() => {
         mockStorage = {
             getItem: jest.fn(() => null),
@@ -15,15 +31,7 @@ describe('Refreshable', () => {
     });
 
     beforeEach(() => {
-        const localVue = createLocalVue();
-
-        localVue.use(Refreshable, {
-            storage: mockStorage
-        });
-
-        wrapper = shallowMount(FormComponent, {
-            localVue
-        });
+        wrapper = createInstance();
     });
 
     afterEach(() => {
@@ -40,16 +48,7 @@ describe('Refreshable', () => {
     it('loads the stored data using a custom key', () => {
         mockStorage.getItem.mockReset();
 
-        const local = createLocalVue();
-
-        local.use(Refreshable, {
-            storage: mockStorage,
-            key: 'custom-key'
-        });
-
-        shallowMount(FormComponent, {
-            localVue: local
-        });
+        createInstance({ key: 'custom-key' });
 
         expect(mockStorage.getItem).toHaveBeenCalledTimes(1);
         expect(mockStorage.getItem).toHaveBeenCalledWith('custom-key');
