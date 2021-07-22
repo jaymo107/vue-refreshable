@@ -1,0 +1,19 @@
+{
+  "name": "vue-refreshable",
+  "version": "1.0.0",
+  "description": "Refreshable forms.",
+  "main": "vueRefreshable.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "refresh",
+    "forms",
+    "data",
+    "localStorage",
+    "persist"
+  ],
+  "author": "jaymo107@gmail.com",
+  "license": "ISC"
+}
