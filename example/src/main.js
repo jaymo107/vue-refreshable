@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Refreshable from '../../src/vueRefreshable';
+import Refreshable from 'vue-refreshable';
 
 Vue.config.productionTip = false
 

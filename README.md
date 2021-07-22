@@ -22,6 +22,9 @@ npm i vue-refreshable --save-dev
 ```
 
 ```js
+import Vue from 'vue';
+import Refreshable from 'vue-refreshable';
+
 Vue.use(Refreshable);
 ```
 
