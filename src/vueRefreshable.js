@@ -5,32 +5,36 @@ export default {
     /**
      * @param {Object} Vue 
      * @param {Object} options 
-     * @param {String} options.key A custom localStorage key
+     * @param {String} options.key      A custom localStorage key.
+     * @param {Object} options.storage  Storage mechanism.
      */
     install(Vue, options = {}) {
         const STORAGE_KEY = options.key || 'vue-refreshable-state';
+        const storage = options.storage || localStorage;
 
         /**
          * @param {Object} state    The current form state.
          */
         const persist = (state) => {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            storage.setItem(STORAGE_KEY, JSON.stringify(state));
         };
 
         /**
          * @return {Object}     The parsed state from storage.
          */
         const getState = () => {
-            const storage = localStorage.getItem(STORAGE_KEY) || {};
+            const stored = storage.getItem(STORAGE_KEY);
+
+            if (!stored) return {};
             
-            return JSON.parse(storage);
+            return JSON.parse(stored);
         };
 
         /**
          * Delete the key when we unbind the component.
          */
         const clearStorage = () => {
-            localStorage.removeItem(STORAGE_KEY);
+            storage.removeItem(STORAGE_KEY);
         };
 
         Vue.directive('refreshable', {
