@@ -10,6 +10,8 @@ Persistant forms when you refresh.
 - Debounce storage.
 - Somehow check the data is valid when restoring?
 - Encryption.
+- Tests.
+- Linting (I disabled for now)
 
 #### Usage
 Install the plugin globally.
