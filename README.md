@@ -51,7 +51,8 @@ data() {
 #### Options
 ```js
 Vue.use(Refreshable, {
-    key: 'storage-key' // Custom key localStorage will use.
+    key: 'storage-key', // Custom key localStorage will use.
+    storage: Storage // Storage object to use internally.
 });
 ```
 
