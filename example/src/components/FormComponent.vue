@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="onSubmit" class="col-md-6 offset-3" v-refreshable="form">
+    <form @submit.prevent="onSubmit" class="col-md-6 offset-3" v-refreshable:form>
         <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" v-model="form.email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
