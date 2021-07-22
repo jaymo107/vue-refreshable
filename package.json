@@ -1,22 +1,29 @@
 {
   "name": "vue-refreshable",
-  "config": {
-    "libName": "vue-refreshable"
-  },
   "version": "0.0.1",
   "description": "Refreshable forms.",
+  "author": "JD",
+  "scripts": {
+    "test:unit": "vue-cli-service test:unit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "main": "./src/vueRefreshable.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jaymo107/vue-refreshable.git"
+  "dependencies": {
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-unit-jest": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "@vue/test-utils": "^1.2.2",
+    "vue-template-compiler": "^2.6.14"
   },
   "bugs": {
     "url": "https://github.com/jaymo107/vue-refreshable/issues"
   },
-  "homepage": "https://github.com/jaymo107/vue-refreshable#readme",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "config": {
+    "libName": "vue-refreshable"
   },
+  "homepage": "https://github.com/jaymo107/vue-refreshable#readme",
   "keywords": [
     "vue",
     "refresh",
@@ -25,9 +32,9 @@
     "localStorage",
     "persist"
   ],
-  "author": "JD",
   "license": "MIT",
-  "dependencies": {
-    "vue": "^2.6.12"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaymo107/vue-refreshable.git"
   }
 }
