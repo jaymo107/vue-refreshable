@@ -1,5 +1,8 @@
 {
   "name": "vue-refreshable",
+  "config": {
+    "libName": "vue-refreshable"
+  },
   "version": "0.0.1",
   "description": "Refreshable forms.",
   "main": "./src/vueRefreshable.js",
@@ -23,5 +26,8 @@
     "persist"
   ],
   "author": "JD",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.6.12"
+  }
 }
