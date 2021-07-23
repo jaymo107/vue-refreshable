@@ -2,12 +2,20 @@
     <form @submit.prevent="onSubmit" class="col-md-6 offset-3" v-refreshable:form>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" v-model="form.email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" v-model="form.email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" v-model="form.name" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="name">Password</label>
+            <input type="password" class="form-control" v-model="form.password" id="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="name">Password Confirm</label>
+            <input type="password" class="form-control" v-model="form.confirm_password" id="confirm_password" placeholder="Password Confirm">
         </div>
         <div class="form-group">
             <label class="form-check-label" for="account_type">Account Type</label>
@@ -34,6 +42,8 @@
                 form: {
                     name: '',
                     email: '',
+                    password: '',
+                    confirm_password: '',
                     account_type: 'Basic',
                     tos: false
                 }
