@@ -57,9 +57,10 @@ describe('Refreshable', () => {
     });
 
     it('sets the initial data from storage', async () => {
-        mockStorage.getItem = jest.fn(
-            () => JSON.stringify({ name: 'Foo Bar', email: 'foo@bar.com' })
-        );
+        mockStorage.getItem = jest.fn(() => JSON.stringify({
+            name: 'Foo Bar',
+            email: 'foo@bar.com'
+        }));
 
         wrapper = createInstance();
 
@@ -70,9 +71,7 @@ describe('Refreshable', () => {
     });
 
     it('should handle restoring invalid JSON data', async () => {
-        mockStorage.getItem = jest.fn(
-            () => 'invalid data'
-        );
+        mockStorage.getItem = jest.fn(() => 'invalid data');
 
         wrapper = createInstance({}, {
             'data-name': 'John Doe',
@@ -98,7 +97,7 @@ describe('Refreshable', () => {
     });
 
     it('stores the current state to localStorage on change', async () => {
-        const expected = JSON.stringify({ name: 'John Doe', email: '' });
+        const expected = JSON.stringify({ name: 'John Doe' });
 
         expect(mockStorage.setItem).not.toHaveBeenCalled();
 
@@ -118,5 +117,15 @@ describe('Refreshable', () => {
 
         expect(mockStorage.removeItem).toHaveBeenCalledTimes(1);
         expect(mockStorage.removeItem).toHaveBeenCalledWith('vue-refreshable-state');
+    });
+
+    it('does not store password fields', async () => {
+        expect(mockStorage.setItem).not.toHaveBeenCalled();
+
+        const nameInput = wrapper.find('input[type="password"]');
+        await nameInput.setValue('secret');
+
+        expect(mockStorage.setItem).toHaveBeenCalledTimes(1);
+        expect('password' in JSON.parse(mockStorage.setItem.mock.calls[0][1])).toBe(false);
     });
 });

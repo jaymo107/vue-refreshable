@@ -1,5 +1,9 @@
 /* eslint-disable */
 
+const DIRECTIVE_NAME = 'refreshable';
+const TYPE_PASSWORD = 'password';
+const DEFAULT_STORAGE_KEY = 'vue-refreshable-state';
+
 export default {
 
     /**
@@ -9,7 +13,7 @@ export default {
      * @param {Object} options.storage  Storage mechanism.
      */
     install(Vue, options = {}) {
-        const STORAGE_KEY = options.key || 'vue-refreshable-state';
+        const STORAGE_KEY = options.key || DEFAULT_STORAGE_KEY;
         const storage = options.storage || localStorage;
 
         /**
@@ -43,7 +47,35 @@ export default {
             storage.removeItem(STORAGE_KEY);
         };
 
-        Vue.directive('refreshable', {
+        /**
+         * Get password values, find the associated keys and omit them from
+         * being stored in the state.
+         * 
+         * @param {Object} currentState               The current state. 
+         * @param {Object} param1                     Element the directive is bound to.
+         * @param {HTMLCollection} param1.elements    Children of the parent element.
+         * @return {Object}
+         */
+        const filterPasswordFields = (currentState, { elements }) => {
+            const state = Object.assign({}, currentState);
+            const passwords = [];
+
+            for (let element of elements) {
+                if (element.type === TYPE_PASSWORD) {
+                    passwords.push(element.value);
+                }
+            }
+
+            for (let key of Object.keys(state)) {
+                if (passwords.includes(state[key])) {
+                    delete state[key];
+                }
+            }
+
+            return state;
+        };
+
+        Vue.directive(DIRECTIVE_NAME, {
             /**
              * When the component is first bound, set the data.
              * 
@@ -69,14 +101,15 @@ export default {
             /**
              * Every time the data updates, persist to the storage.
              * 
-             * @param {HTMLElement} el          DOM Element.
+             * @param {HTMLFormElement} el          DOM Element.
              * @param {Object} param1           Binding object.
              * @param {String} param1.arg       The key to restore data from
              * @param {Object} param2           VNode.
              * @param {Object} param2.context   Vue Instance.
              */
             update(el, { arg }, { context }) {
-                persist({ ...context[arg] });
+                const state = filterPasswordFields(context[arg], el);
+                persist(state);
             }
         });
     }
