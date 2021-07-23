@@ -3,8 +3,6 @@ Persistant forms when you refresh.
 
 [![Node.js CI](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml)
 
-## Don't use this, WIP.
-
 #### Todo
 - [ ] Prevent collisions when switching pages.
 - [x] ~Do we really need to pass in the data object?~
