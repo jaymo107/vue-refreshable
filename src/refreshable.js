@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Storage from './storage/store';
-import passwordFilter from './filters/passwordFilter';
+import filterState from './filters/filterState';
 
 const DEFAULT_DELAY = 1000; // One second
 
@@ -44,14 +44,16 @@ export default (options = {}) => {
     /**
      * Every time the data updates, persist to the storage.
      *
-     * @param {HTMLFormElement} el      DOM Element.
-     * @param {Object} param1           Binding object.
-     * @param {String} param1.arg       The key to restore data from
-     * @param {Object} param2           VNode.
-     * @param {Object} param2.context   Vue Instance.
+     * @param {HTMLFormElement} el        DOM Element.
+     * @param {Object} param1             Binding object.
+     * @param {String} param1.arg         The key to restore data from
+     * @param {String} param1.modifiers   Modifiers for the state.
+     * @param {Object} param2             VNode.
+     * @param {Object} param2.context     Vue Instance.
      */
-    update: _.debounce((el, { arg }, { context }) => {
-      const state = passwordFilter(context[arg], el);
+    update: _.debounce((el, { arg, modifiers }, { context }) => {
+      const { elements } = el;
+      const state = filterState(context[arg], elements, modifiers);
       storage.set(state);
     }, delay),
   };

@@ -1,8 +1,5 @@
-const TYPE_PASSWORD = 'password';
-
 /**
- * Get password values, find the associated keys and omit them from
- * being stored in the state.
+ * Only store inputs that have passed validation criteria.
  *
  * @param {Object} currentState        The current state.
  * @param {HTMLCollection} elements    Children of the parent element.
@@ -10,16 +7,16 @@ const TYPE_PASSWORD = 'password';
  */
 export default (currentState, elements) => {
   const state = { ...currentState };
-  const passwords = [];
+  const invalid = [];
 
   for (const element of elements) {
-    if (element.type === TYPE_PASSWORD) {
-      passwords.push(element.value);
+    if (!element.validity.valid) {
+      invalid.push(element.value);
     }
   }
 
   Object.keys(state).forEach((key) => {
-    if (passwords.includes(state[key])) {
+    if (invalid.includes(state[key])) {
       delete state[key];
     }
   });

@@ -35,6 +35,11 @@ Then use the directive `v-refreshable` on the form element you'd like to save, p
 <form v-refreshable:form></form>
 ```
 
+Pass a `valid` modifier to only store elements that pass validation.
+```html
+<form v-refreshable:form.valid></form>
+```
+
 ```js
 data() {
     return {

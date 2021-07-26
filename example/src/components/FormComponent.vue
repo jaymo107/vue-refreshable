@@ -1,9 +1,13 @@
 <template>
-    <form @submit.prevent="onSubmit" class="col-md-6 offset-3" v-refreshable:form>
+    <form @submit.prevent="onSubmit" class="col-md-6 offset-3" v-refreshable:form.valid>
         <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" v-model="form.email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="name">Age</label>
+            <input type="number" class="form-control" v-model="form.age" id="age" placeholder="Age">
         </div>
         <div class="form-group">
             <label for="name">Name</label>
@@ -42,6 +46,7 @@
                 form: {
                     name: '',
                     email: '',
+                    age: 0,
                     password: '',
                     confirm_password: '',
                     account_type: 'Basic',
