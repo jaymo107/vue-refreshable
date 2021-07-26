@@ -6,9 +6,9 @@ const DEFAULT_DELAY = 1000; // One second
 
 /**
  * @param {Object} options
- * @param {String} options.key      A custom localStorage key.
- * @param {Object} options.storage  Storage mechanism.
- * @param {Number} options.delay    Storage delay time.
+ * @param {String} options.key        A custom localStorage key.
+ * @param {Object} options.storage    Storage mechanism.
+ * @param {Number} options.delay      Storage delay time.
  */
 export default (options = {}) => {
   const delay = options.delay || DEFAULT_DELAY;
@@ -44,7 +44,7 @@ export default (options = {}) => {
     /**
      * Every time the data updates, persist to the storage.
      *
-     * @param {HTMLFormElement} el          DOM Element.
+     * @param {HTMLFormElement} el      DOM Element.
      * @param {Object} param1           Binding object.
      * @param {String} param1.arg       The key to restore data from
      * @param {Object} param2           VNode.
