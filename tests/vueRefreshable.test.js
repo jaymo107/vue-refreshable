@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Refreshable from '@/vueRefreshable';
+import Refreshable from '@/main';
 import FormComponent from './FormComponent';
 
 describe('Refreshable', () => {
