@@ -58,11 +58,11 @@ export default {
       const state = { ...currentState };
       const passwords = [];
 
-      elements.forEach((element) => {
+      for (const element of elements) {
         if (element.type === TYPE_PASSWORD) {
           passwords.push(element.value);
         }
-      });
+      }
 
       Object.keys(state).forEach((key) => {
         if (passwords.includes(state[key])) {

@@ -16,5 +16,6 @@ module.exports = {
     '/example',
   ],
   rules: {
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"]
   },
 };
