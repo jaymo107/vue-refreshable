@@ -64,3 +64,22 @@ npm install
 ```
 npm run serve
 ```
+
+#### Development
+Install dependencies first
+```
+npm i
+```
+
+Running tests
+```
+npm run test
+```
+Building the module
+```
+npm run build
+```
+Auto-build on file changes
+```
+npm run build:watch
+```
