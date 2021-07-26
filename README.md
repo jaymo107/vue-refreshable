@@ -1,7 +1,7 @@
 # Vue Refreshable
 Persistant forms when you refresh.
 
-[![Node.js CI](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml) [![CodeQL](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml) [![Node.js Package](https://github.com/jaymo107/vue-refreshable/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/jaymo107/vue-refreshable/actions/workflows/npm-publish.yml)
+[![Node.js CI](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml) [![CodeQL](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml) [![Node.js Package](https://github.com/jaymo107/vue-refreshable/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/jaymo107/vue-refreshable/actions/workflows/npm-publish.yml) ![npm](https://img.shields.io/npm/dw/vue-refreshable) ![NPM](https://img.shields.io/npm/l/vue-refreshable)
 
 #### Todo
 - [ ] Prevent collisions when switching pages.
