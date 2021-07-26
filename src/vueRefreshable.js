@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const DIRECTIVE_NAME = 'refreshable';
 const TYPE_PASSWORD = 'password';
 const DEFAULT_STORAGE_KEY = 'vue-refreshable-state';
