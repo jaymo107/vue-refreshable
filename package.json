@@ -7,8 +7,8 @@
     "test": "vue-cli-service test:unit",
     "build:watch": "npm run build:es -- --watch && npm run build:umd -- --watch",
     "build": "npm run build:es && npm run build:umd",
-    "build:es": "rollup --config --format es --file dist/vueRefreshable.esm.js",
-    "build:umd": "rollup --config --format umd --file dist/vueRefreshable.umd.js",
+    "build:es": "rollup --config --format es --file dist/vueRefreshable.esm.js --sourcemap",
+    "build:umd": "rollup --config --format umd --file dist/vueRefreshable.umd.js --sourcemap",
     "lint": "./node_modules/eslint/bin/eslint.js src",
     "lint:fix": "npm run lint -- --fix"
   },
