@@ -15,7 +15,7 @@ Persistant forms when you refresh.
 - [ ] Linting (I disabled for now)
 - [ ] Instead of relying on the data object, actually make it matter where you put the directive and get the data from the child inputs of the form. Since it doesn't matter where you put the directive currently.
 
-#### Usage
+### Usage
 Install the plugin globally.
 
 ```sh
@@ -65,7 +65,7 @@ npm install
 npm run serve
 ```
 
-#### Development
+### Development
 Install dependencies first
 ```
 npm i
