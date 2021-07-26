@@ -28,8 +28,12 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - run: npm ci
-      - run: npm version patch
-      - run: npm version publish
+      - run: |
+          echo ${{ env.RELEASE_VERSION }}
+          npm version ${{ env.RELEASE_VERSION }}
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
