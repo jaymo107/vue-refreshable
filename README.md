@@ -1,9 +1,7 @@
 # Vue Refreshable
 Persistant forms when you refresh.
 
-[![Node.js CI](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml)
-
-[![CodeQL](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml)
+[![Node.js CI](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/node.js.yml) [![CodeQL](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/jaymo107/vue-refreshable/actions/workflows/codeql-analysis.yml)
 
 #### Todo
 - [ ] Prevent collisions when switching pages.
@@ -52,8 +50,9 @@ data() {
 #### Options
 ```js
 Vue.use(Refreshable, {
-    key: 'storage-key', // Custom key localStorage will use.
-    storage: Storage // Storage object to use internally.
+    key: 'storage-key',  // Custom key localStorage will use.
+    storage: Storage,    // Storage object to use internally.
+    delay: 1000,         // Delay before saving state.
 });
 ```
 

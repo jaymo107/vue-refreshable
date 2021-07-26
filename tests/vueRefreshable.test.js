@@ -3,129 +3,137 @@ import Refreshable from '@/main';
 import FormComponent from './FormComponent';
 
 describe('Refreshable', () => {
-    let wrapper;
-    let mockStorage;
+  let wrapper;
+  let mockStorage;
 
-    /**
+  /**
      * @param {Object} options
-     * @param {Object} props 
+     * @param {Object} props
      * @return {Wrapper}
      */
-    const createInstance = (options = {}, props = {}) => {
-        const localVue = createLocalVue();
+  const createInstance = (options = {}, props = {}) => {
+    const localVue = createLocalVue();
 
-        localVue.use(Refreshable, Object.assign({
-            storage: mockStorage,
-        }, options));
+    localVue.use(Refreshable, { storage: mockStorage, ...options });
 
-        return shallowMount(FormComponent, {
-            localVue,
-            propsData: props
-        });
-    };
-    
-    /**
-     * @param {String} selector 
-     * @param {String} value 
+    return shallowMount(FormComponent, {
+      localVue,
+      propsData: props,
+    });
+  };
+
+  /**
+     * @param {String} selector
+     * @param {String} value
      */
-    const assertInputEquals = (selector, value) => {
-        const input = wrapper.find(selector).element.value;
-        expect(input).toBe(value);
+  const assertInputEquals = (selector, value) => {
+    const input = wrapper.find(selector).element.value;
+    expect(input).toBe(value);
+  };
+
+  beforeAll(() => {
+    mockStorage = {
+      getItem: jest.fn(() => null),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
     };
+  });
 
-    beforeAll(() => {
-        mockStorage = {
-            getItem: jest.fn(() => null),
-            setItem: jest.fn(),
-            removeItem: jest.fn(),
-        };
+  beforeEach(() => {
+    wrapper = createInstance({
+      delay: 1
+    });
+  });
+
+  afterEach(() => {
+    Object.keys(mockStorage).forEach((method) => {
+      mockStorage[method].mockReset();
+    });
+  });
+
+  it('loads the stored state into the chosen data key', () => {
+    expect(mockStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(mockStorage.getItem).toHaveBeenCalledWith('vue-refreshable-state');
+  });
+
+  it('sets the initial data from storage', async () => {
+    mockStorage.getItem = jest.fn(() => JSON.stringify({
+      name: 'Foo Bar',
+      email: 'foo@bar.com',
+    }));
+
+    wrapper = createInstance();
+
+    await wrapper.vm.$nextTick();
+
+    assertInputEquals('input[type="text"]', 'Foo Bar');
+    assertInputEquals('input[type="email"]', 'foo@bar.com');
+  });
+
+  it('should handle restoring invalid JSON data', async () => {
+    mockStorage.getItem = jest.fn(() => 'invalid data');
+
+    wrapper = createInstance({}, {
+      'data-name': 'John Doe',
+      'data-email': 'john@doe.com',
     });
 
-    beforeEach(() => {
-        wrapper = createInstance();
-    });
+    assertInputEquals('input[type="text"]', 'John Doe');
+    assertInputEquals('input[type="email"]', 'john@doe.com');
 
-    afterEach(() => {
-        Object.keys(mockStorage).forEach(method => {
-            mockStorage[method].mockReset();
-        });
-    });
+    await wrapper.vm.$nextTick();
 
-    it('loads the stored state into the chosen data key', () => {
-        expect(mockStorage.getItem).toHaveBeenCalledTimes(1);
-        expect(mockStorage.getItem).toHaveBeenCalledWith('vue-refreshable-state');
-    });
+    assertInputEquals('input[type="text"]', 'John Doe');
+    assertInputEquals('input[type="email"]', 'john@doe.com');
+  });
 
-    it('sets the initial data from storage', async () => {
-        mockStorage.getItem = jest.fn(() => JSON.stringify({
-            name: 'Foo Bar',
-            email: 'foo@bar.com'
-        }));
+  it('loads the stored data using a custom key', () => {
+    mockStorage.getItem.mockReset();
 
-        wrapper = createInstance();
+    createInstance({ key: 'custom-key' });
 
-        await wrapper.vm.$nextTick();
+    expect(mockStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(mockStorage.getItem).toHaveBeenCalledWith('custom-key');
+  });
 
-        assertInputEquals('input[type="text"]', 'Foo Bar');
-        assertInputEquals('input[type="email"]', 'foo@bar.com');
-    });
+  it('stores the current state to localStorage on change', async (done) => {
+    const expected = JSON.stringify({ name: 'John Doe' });
 
-    it('should handle restoring invalid JSON data', async () => {
-        mockStorage.getItem = jest.fn(() => 'invalid data');
+    expect(mockStorage.setItem).not.toHaveBeenCalled();
 
-        wrapper = createInstance({}, {
-            'data-name': 'John Doe',
-            'data-email': 'john@doe.com'
-        });
+    const nameInput = wrapper.find('input[type="text"]');
+    await nameInput.setValue('John Doe');
 
-        assertInputEquals('input[type="text"]', 'John Doe');
-        assertInputEquals('input[type="email"]', 'john@doe.com');
+    setTimeout(() => {
+      assertInputEquals('input[type="text"]', 'John Doe');
 
-        await wrapper.vm.$nextTick();
+      expect(mockStorage.setItem).toHaveBeenCalledTimes(1);
+      expect(mockStorage.setItem).toHaveBeenCalledWith('vue-refreshable-state', expected);
 
-        assertInputEquals('input[type="text"]', 'John Doe');
-        assertInputEquals('input[type="email"]', 'john@doe.com');
-    });
+      done();
+    }, 1);
+  });
 
-    it('loads the stored data using a custom key', () => {
-        mockStorage.getItem.mockReset();
+  it('clears the storage when the component is unmounted', () => {
+    expect(mockStorage.removeItem).not.toHaveBeenCalled();
 
-        createInstance({ key: 'custom-key' });
+    wrapper.destroy();
 
-        expect(mockStorage.getItem).toHaveBeenCalledTimes(1);
-        expect(mockStorage.getItem).toHaveBeenCalledWith('custom-key');
-    });
+    expect(mockStorage.removeItem).toHaveBeenCalledTimes(1);
+    expect(mockStorage.removeItem).toHaveBeenCalledWith('vue-refreshable-state');
+  });
 
-    it('stores the current state to localStorage on change', async () => {
-        const expected = JSON.stringify({ name: 'John Doe' });
+  it('does not store password fields', async (done) => {
+    expect(mockStorage.setItem).not.toHaveBeenCalled();
 
-        expect(mockStorage.setItem).not.toHaveBeenCalled();
+    const nameInput = wrapper.find('input[type="password"]');
+    await nameInput.setValue('secret');
 
-        const nameInput = wrapper.find('input[type="text"]');
-        await nameInput.setValue('John Doe');
+    setTimeout(() => {
+      expect(mockStorage.setItem).toHaveBeenCalledTimes(1);
+      expect('password' in JSON.parse(mockStorage.setItem.mock.calls[0][1])).toBe(false);
 
-        assertInputEquals('input[type="text"]', 'John Doe');
-        
-        expect(mockStorage.setItem).toHaveBeenCalledTimes(1);
-        expect(mockStorage.setItem).toHaveBeenCalledWith('vue-refreshable-state', expected);
-    });
-
-    it('clears the storage when the component is unmounted', () => {
-        expect(mockStorage.removeItem).not.toHaveBeenCalled();
-
-        wrapper.destroy();
-
-        expect(mockStorage.removeItem).toHaveBeenCalledTimes(1);
-        expect(mockStorage.removeItem).toHaveBeenCalledWith('vue-refreshable-state');
-    });
-
-    it('does not store password fields', async () => {
-        expect(mockStorage.setItem).not.toHaveBeenCalled();
-
-        const nameInput = wrapper.find('input[type="password"]');
-        await nameInput.setValue('secret');
-
-        expect(mockStorage.setItem).toHaveBeenCalledTimes(1);
-        expect('password' in JSON.parse(mockStorage.setItem.mock.calls[0][1])).toBe(false);
-    });
+      done();
+    }, 1);
+  });
 });

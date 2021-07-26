@@ -9,6 +9,7 @@ export default {
    * @param {Object} options
    * @param {String} options.key      A custom localStorage key.
    * @param {Object} options.storage  Storage mechanism.
+   * @param {Number} options.delay    Storage delay time.
    */
   install(Vue, options = {}) {
     const refreshable = Refreshable(options);

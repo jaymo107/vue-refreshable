@@ -1,7 +1,18 @@
+import _ from 'lodash';
 import Storage from './storage/store';
 import passwordFilter from './filters/passwordFilter';
 
+const DEFAULT_DELAY = 1000; // One second
+
+/**
+ * @param {Object} options
+ * @param {String} options.key      A custom localStorage key.
+ * @param {Object} options.storage  Storage mechanism.
+ * @param {Number} options.delay    Storage delay time.
+ */
 export default (options = {}) => {
+  const delay = options.delay || DEFAULT_DELAY;
+
   const storage = new Storage({
     storage: options.storage,
     key: options.key,
@@ -39,9 +50,9 @@ export default (options = {}) => {
      * @param {Object} param2           VNode.
      * @param {Object} param2.context   Vue Instance.
      */
-    update(el, { arg }, { context }) {
+    update: _.debounce((el, { arg }, { context }) => {
       const state = passwordFilter(context[arg], el);
       storage.set(state);
-    },
+    }, delay),
   };
 };
