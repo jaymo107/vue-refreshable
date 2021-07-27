@@ -7,7 +7,7 @@ Persistant forms when you refresh.
 - [ ] Prevent collisions when switching pages.
 - [x] ~Do we really need to pass in the data object?~
 - [ ] Ability to omit fields.
-- [ ] Debounce storage.
+- [x] ~Debounce storage.~
 - [x] ~Don't store passwords.~
 - [ ] Somehow check the data is valid when restoring?
 - [ ] Encryption?
